@@ -1,0 +1,9 @@
+This is the general order in which I'll be implementing these
+
+TYPE SEARCHING
+COLOR SEARCHING
+SET SEARCHING
+LEGALITIES SEARCHING
+COMPLEX BOOLEAN OPERATIONS:
+(For example: search for cards with power 4 or greater, or are goblins)
+CUSTOM CARD OUTPUT FORMATTING

@@ -1,0 +1,31 @@
+You are currently looking at the about file in the non-deprecated folder.
+For examples of its usage, see the /DEPRECATED/ folder.
+
+For every test there is two corresponding files:
+
+NAME.tst
+NAME.rst
+
+The .tst is the parameters, 
+the .rst is the expected output.
+
+There are different types of .tst/.rst pairs
+
+=Type Literal==
+execute the SCRIPT line, then compare exactly with the .rst contents.
+
+===test0.tst===
+RST=LITERAL
+SCRIPT --print count_bare Deathcult Rogue
+===============
+===test0.rst===
+1
+===============
+
+=Type Line-Delim==
+For each line in the .tst, this is compared against the corresponding
+  line in the .rst
+
+===tests0.tst===
+RST=NL-DELIM
+
