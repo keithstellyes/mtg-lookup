@@ -51,15 +51,15 @@ special meaning, so to pass the above, you must surround the > < with "".
 
 For power in a range 3-5, it is as simple as:
 
--p ">2" -p "<6" 
+    -p ">2" -p "<6" 
 
 or,
 
--p ">=3" -p "<=5"
+    -p ">=3" -p "<=5"
 
 Also, for exact equality:
 
--cmc 5
+    -cmc 5
 
 This will return all cards with a CMC of exactly 5.
 
@@ -69,17 +69,17 @@ The keywords are name, text
 
 The syntax is simple:
 
--keyword PATTERN
+    -keyword PATTERN
 
 For cards that contain "Jace" in their name:
 
--name jace
+    -name jace
 
 Also, by default name searches can be passed without the -name paramter The 
 above can be written as:
 
-jace
+    jace
 
 For creatures with "golgari" in their name and power greater than 3 we can do:
 
-golgari -p ">3"
+    golgari -p ">3"
