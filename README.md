@@ -6,18 +6,21 @@ application. This is a rebasing/refactoring in progress of some old code with
 many features.
 
 # Features
+
 Currently, it supports only a few criteria searching (like power greater than
 X), regex searching of names and card descriptions, among a few other things.
 It is currently in the process of being updated with reimplementations of
 already written features.
 
 # Upcoming Features
+
 More criteria searching, tag-based searching (Like, has-flying), complex 
 boolean searches like returning only cards that are named Jace or are 
 instants, or sorceries with CMC less than 4. These features already exist in
 the old deprecated code, in fact.
 
 # Setup
+
 mtg-lookup is currently only distributed as Python 3 script and thus requires
 a Python 3 interpreter on the machine running mtg-lookup. 
 
@@ -85,6 +88,7 @@ For creatures with "golgari" in their name and power greater than 3 we can do:
     golgari -p ">3"
 
 **LIST PARAMETERS**
+
 The keywords are printings, colorid, and type
 
 The syntax is simple, for inclusions there is:
@@ -100,6 +104,7 @@ For exclusions it is:
     -keyword -x ELEMENT-TO-EXCLUDE
 
 **PRINT OPTIONS**
+
 Currently, the only printing option beyond default is count_bare. This is mainly useful for debugging purposes.
 
 It simply returns the number of results
