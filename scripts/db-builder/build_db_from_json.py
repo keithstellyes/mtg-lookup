@@ -1,3 +1,5 @@
+##LICENSE: See LICENSE.txt
+#JSON's sourced from mtgjson.com Thank you!!!
 """
 build-db-from-json.py
 """

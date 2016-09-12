@@ -1,3 +1,4 @@
+#LICENSE: See LICENSE.txt
 import sqlite3
 import sys
 
@@ -8,10 +9,19 @@ except ImportError:
 
 def parse_args():
     #arg_name:db_col_name
+
+    #usage: -power ">5"
+    #usage: -toughness 5
     int_keys = {"power":"POWER","toughness":"TOUGHNESS"
                 ,"p":"POWER","t":"TOUGHNESS","cmc":"CMC"}
+
+    #usage: -name REGEXPATTERN
     re_keys = {"name":"NAME","text":"CARD_TEXT"}
-    list_keys = {}
+
+    #usage:
+    #-type -i type_a type_b -x type_c
+    #include types a, types b, exclude type c
+    list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"} #TODO: Fill this in
     misc_keys = ["-print","-help",","]
 
     i = 1

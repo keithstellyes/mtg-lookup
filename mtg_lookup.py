@@ -1,3 +1,4 @@
+#LICENSE: See LICENSE.txt
 """
 AUTHOR: Keith Stellyes
 

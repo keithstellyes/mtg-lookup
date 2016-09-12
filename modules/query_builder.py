@@ -1,3 +1,4 @@
+#LICENSE: See LICENSE.txt
 #query_builder.py
 import re
 import sqlite3
@@ -48,6 +49,10 @@ class QueryBuilder:
     def print_results():
         for r in QueryBuilder.cursor_results:
             print(r)
+        #To get col names we can use:
+        # names = [description[0] for description in cursor.description]
+        #(Thanks,
+        #http://stackoverflow.com/questions/7831371/is-there-a-way-to-get-a-list-of-column-names-in-sqlite)
         """ columns are in the following order:
         CMC, COLOR_IDENTITY, COLORS, LEGALITIES, LOYALTY, MANA_COST, NAME,
         POWER, PRINTINGS, RULINGS, SUBTYPES, SUPERTYPES, CARD_TEXT, TOUGHNESS,
