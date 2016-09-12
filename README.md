@@ -34,10 +34,10 @@ See the **syntax** section on the syntax of those arguments passed.
 
 # Syntax
 
-In mtg-lookup, there are 2 types of parameters implemented, each with their
-own syntax.
+In mtg-lookup, there are 3 types of parameters implemented, each with their
+own syntax. There is also print settings
 
-**Integer paramters:**
+**Integer parameters:**
 
 The keywords are: power, toughness, p, t, and cmc. (p ant t are shorthand for
 power and toughness) right after usage of an integer argument, you must define
@@ -75,7 +75,7 @@ For cards that contain "Jace" in their name:
 
     -name jace
 
-Also, by default name searches can be passed without the -name paramter The 
+Also, by default name searches can be passed without the -name parameter The 
 above can be written as:
 
     jace
@@ -83,3 +83,27 @@ above can be written as:
 For creatures with "golgari" in their name and power greater than 3 we can do:
 
     golgari -p ">3"
+
+**LIST PARAMETERS**
+The keywords are printings, colorid, and type
+
+The syntax is simple, for inclusions there is:
+
+    -keyword -i ELEMENT-TO-INCLUDE
+
+Also,
+
+    -keyword ELEMENT-TO-INCLUDE
+
+For exclusions it is:
+
+    -keyword -x ELEMENT-TO-EXCLUDE
+
+**PRINT OPTIONS**
+Currently, the only printing option beyond default is count_bare. This is mainly useful for debugging purposes.
+
+It simply returns the number of results
+
+The syntax is:
+
+    -print count_bare
