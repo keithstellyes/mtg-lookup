@@ -24,7 +24,7 @@ def parse_args():
     list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"
                  ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS"}
     misc_keys = ["-print","-help",","]
-    valid_print_options = ['count_bare']
+    valid_print_options = ['count_bare','custom']
 
     i = 1
 
@@ -83,7 +83,10 @@ def parse_args():
                     print("BAD ARGUMENT FOR -print:")
                     print(sys.argv[i])
                     sys.exit(1)
-                qb.print_settings = sys.argv[i]
+                qb.print_setting = sys.argv[i]
+                if sys.argv[i] == 'custom':
+                    i += 1
+                    qb.custom_print_str = open(sys.argv[i],'r').read()
             i += 1
             continue
         print("Argument not recognized:")

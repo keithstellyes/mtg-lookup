@@ -105,10 +105,29 @@ For exclusions it is:
 
 **PRINT OPTIONS**
 
-Currently, the only printing option beyond default is count_bare. This is mainly useful for debugging purposes.
+Currently, there are two printing options:
+
+count_bare and custom
+
+*count_bare:*
 
 It simply returns the number of results
 
 The syntax is:
 
     -print count_bare
+
+*custom:*
+
+Loads a custom print formatting as defined by a file. See Custom card printing.
+
+    -print custom file-path-of-formatting-file
+
+# Custom card printing
+
+mtg-lookup also supports custom print outputting as defined by a text file.
+
+The syntax is simple: {SQLite column name} to be replaced by it. See the 
+examples examples-of-custom-card-output/ folder for examples. Currently, lists
+are stored as ; separated lists with ; at each end, so readability isn't 
+perfect. It'll be fixed later on.
