@@ -77,7 +77,7 @@ qry = "CREATE TABLE CARDS (CMC INTEGER,COLOR_IDENTITY TEXT,COLORS TEXT,"
 qry += "LEGALITIES TEXT,LOYALTY INTEGER,MANA_COST TEXT,NAME TEXT,"
 qry += "POWER INTEGER, PRINTINGS TEXT, RULINGS TEXT, SUBTYPES TEXT,"
 qry += "SUPERTYPES TEXT, CARD_TEXT TEXT, TOUGHNESS INTEGER, TYPE TEXT,"
-qry += "TYPES TEXT)"
+qry += "TYPES TEXT,ALL_TYPES TEXT)"
 print("...Executing query:...")
 print(qry)
 print("......................")
@@ -89,7 +89,7 @@ c.execute(qry)
 for k in data.keys():
     qry = "INSERT INTO CARDS (NAME,CMC,COLOR_IDENTITY,COLORS,LEGALITIES,"
     qry += "LOYALTY,MANA_COST,POWER,PRINTINGS,RULINGS,SUBTYPES,"
-    qry += "SUPERTYPES,CARD_TEXT,TOUGHNESS,TYPE,TYPES) VALUES("
+    qry += "SUPERTYPES,CARD_TEXT,TOUGHNESS,TYPE,TYPES,ALL_TYPES) VALUES("
     try:
         qry += '"'+str(data[k]['name']).replace('"','""')+'"'
     except:
@@ -103,13 +103,13 @@ for k in data.keys():
     qry += ","
 
     try:
-        qry += "'"+";".join(data[k]['colorIdentity'])+"'"
+        qry += "'" + ";" + ";".join(data[k]['colorIdentity']) + ";" + "'"
     except KeyError:
         qry += "NULL"
     qry += ","
 
     try:
-        qry += "'"+";".join(data[k]['colors'])+"'"
+        qry += "'"+ ";" + ";".join(data[k]['colors']) + ";" + "'"
     except KeyError:
         qry += "'NULL'"
     qry += ","
@@ -145,7 +145,7 @@ for k in data.keys():
     qry += ","
 
     try:
-        qry += "'"+";".join(data[k]['printings'])+"'"
+        qry += "'" + ";" + ";".join(data[k]['printings']) + ";" + "'"
     except KeyError:
         qry += "'NULL'"
     qry += ","
@@ -160,13 +160,13 @@ for k in data.keys():
     qry += "'',"
 
     try:
-        qry += "'"+";".join(data[k]['subtypes'])+"'"
+        qry += "'" + ";" + ";".join(data[k]['subtypes']) + ";" + "'"
     except KeyError:
         qry += "'NULL'"
     qry += ","
 
     try:
-        qry += "'"+";".join(data[k]['supertypes'])+"'"
+        qry += "'" + ";" + ";".join(data[k]['supertypes']) + ";" + "'"
     except KeyError:
         qry += "'NULL'"
     qry += ","
@@ -192,9 +192,31 @@ for k in data.keys():
     qry += ","
 
     try:
-        qry += '"'+";".join(data[k]['types'])+'"'
+        qry += '"' + ";" + ";".join(data[k]['types']) + ";" + '"'
     except KeyError:
         qry += "'NULL'"
+    qry += ","
+
+    #ALL_TYPES
+    qry += '"'
+    typs = []
+    try:
+        for t in data[k]['supertypes']:
+            typs.append(t)
+    except KeyError:
+        pass
+    try:
+        for t in data[k]['types']:
+            typs.append(t)
+    except KeyError:
+        pass
+    try:
+        for t in data[k]['subtypes']:
+            typs.append(t)
+    except KeyError:
+        pass
+    qry += ";" + ";".join(typs) + ";"
+    qry += '"'
 
     try:
         c.execute(qry+")")

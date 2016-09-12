@@ -21,8 +21,10 @@ def parse_args():
     #usage:
     #-type -i type_a type_b -x type_c
     #include types a, types b, exclude type c
-    list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"} #TODO: Fill this in
+    list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"
+                 ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS"}
     misc_keys = ["-print","-help",","]
+    valid_print_options = ['count_bare']
 
     i = 1
 
@@ -59,15 +61,29 @@ def parse_args():
                 continue
         #TODO: look into the sqlite3's adapter features for Python <-> sqlite data
         if sys.argv[i][1:] in list_keys.keys():
+            arg = list_keys[sys.argv[i][1:]]
             i += 1
-            #LIST PROCESSING LOGIC...
-            pass
+            inclusions = []
+            exclusions = []
+            if sys.argv[i] != '-x':
+                inclusions.append(sys.argv[i])
+            else:
+                i += 1
+                exclusions.append(sys.argv[i])
+            qb.add_list(arg,inclusions,exclusions)
+
             i += 1
             continue
         #IF WE HIT HERE, WE'VE HIT MISCELANNY OPTIONS
         if sys.argv[i] in misc_keys:
             #PROCESS...
-            pass
+            if sys.argv[i] == "-print":
+                i += 1
+                if sys.argv[i] not in valid_print_options:
+                    print("BAD ARGUMENT FOR -print:")
+                    print(sys.argv[i])
+                    sys.exit(1)
+                qb.print_settings = sys.argv[i]
             i += 1
             continue
         print("Argument not recognized:")
