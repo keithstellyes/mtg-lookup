@@ -89,7 +89,7 @@ For creatures with "golgari" in their name and power greater than 3 we can do:
 
 **LIST PARAMETERS**
 
-The keywords are printings, colorid, and type
+The keywords are printings, colorid, format and type
 
 The syntax is simple, for inclusions there is:
 

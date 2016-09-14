@@ -114,15 +114,21 @@ for k in data.keys():
         qry += "'NULL'"
     qry += ","
 
-    """
+
     try:
         #qry += ";".join(data[k]['legalities'])
-        qry += str(data[k]['legalities'])
+        #qry += str(data[k]['legalities'])
+        nnnn = data[k]['legalities']
+        qry += "';"
+        for el in data[k]['legalities']:
+            if el['legality'] != 'Banned':
+                qry += el['format'] + ';'
+        qry += "'"
     except KeyError:
-        qry += "NULL"
+        qry += "'NULL'"
     qry += ","
-    """
-    qry += "'',"
+
+    #qry += "'',"
 
     try:
         qry += str(data[k]['loyalty'])
@@ -150,14 +156,17 @@ for k in data.keys():
         qry += "'NULL'"
     qry += ","
 
-    """
+    qry += "'"
     try:
-        qry += str(data[k]['rulings'])
+        nnn = data[k]['rulings']
+        qry += ";"
+        for el in data[k]['rulings']:
+            qry += el['text'].replace("'",'"') + '(' + el['date'] + ');'
     except KeyError:
         qry += "NULL"
-    qry += ","
-    """
-    qry += "'',"
+    qry += "',"
+
+    #qry += "'',"
 
     try:
         qry += "'" + ";" + ";".join(data[k]['subtypes']) + ";" + "'"

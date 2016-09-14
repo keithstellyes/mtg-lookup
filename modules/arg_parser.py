@@ -22,7 +22,7 @@ def parse_args():
     #-type -i type_a type_b -x type_c
     #include types a, types b, exclude type c
     list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"
-                 ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS"}
+                 ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS","format":"LEGALITIES"}
     misc_keys = ["-print","-help",","]
     valid_print_options = ['count_bare','custom']
 
@@ -39,7 +39,7 @@ def parse_args():
         if sys.argv[i][1:] in re_keys.keys():
             col = re_keys[sys.argv[i][1:]]
             i += 1
-            qb.addregex(col,sys.argv[i])
+            qb.add_regex(col,sys.argv[i])
             i += 1
             continue
         if sys.argv[i][1:] in int_keys.keys():
