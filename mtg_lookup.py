@@ -21,7 +21,7 @@ import sys
 from modules.query_builder import QueryBuilder as qb
 from modules.arg_parser import parse_args
 
-data_db_file = os.getcwd() + "/" + "data/data.db"
+data_db_file = os.path.dirname(os.path.realpath(__file__)) + '/data/data.db'
 
 if not os.path.isfile(data_db_file):
     print("ERROR")
