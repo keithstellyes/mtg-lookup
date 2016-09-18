@@ -21,4 +21,4 @@ TST=STD
 30#-print count_bare -type Scarecrow -type Artifact
 1#-print count_bare -type scarecrow -type LEGenDarY
 1#-type SCAREcrow -print count_bare -type leGENDARY -text perm
-340#-bool "0|1" -type scarecrow , -type goblin
+340#-bool "0|1" -type scarecrow , -type goblin -print count_bare

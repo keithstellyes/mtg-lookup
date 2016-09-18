@@ -13,6 +13,7 @@ class QueryBuilder:
     print_setting = ""
     custom_print_str = ""
     bool_operation = None
+    debug_options = {"PRINT_QUERY":False}
 
     #returns True on success, False on failure
     def push_bool_operation(s):
@@ -108,7 +109,11 @@ class QueryBuilder:
         QueryBuilder.cursor_results = QueryBuilder.cursor.execute(QueryBuilder.qry)
         #QueryBuilder.criteria_groups = set()
         QueryBuilder.criteria_groups = []
-        print(QueryBuilder.qry)
+        #print(QueryBuilder.qry)
+        if QueryBuilder.debug_options["PRINT_QUERY"]:
+            print("===QUERY===")
+            QueryBuilder.print_query()
+            print("===========")
 
     def print_query():
         print(QueryBuilder.qry)

@@ -23,7 +23,7 @@ def parse_args():
     #include types a, types b, exclude type c
     list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"
                  ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS","format":"LEGALITIES"}
-    misc_keys = ["-print","-help",",","-bool"]
+    misc_keys = ["-print","-help",",","-bool","-debug"]
     valid_print_options = ['count_bare','custom']
 
     i = 1
@@ -87,6 +87,9 @@ def parse_args():
                 if sys.argv[i] == 'custom':
                     i += 1
                     qb.custom_print_str = open(sys.argv[i],'r').read()
+            if sys.argv[i] == '-debug':
+                i += 1
+                qb.debug_options[sys.argv[i]] = True
             if sys.argv[i] == '-bool':
                 i += 1
                 qb.push_bool_operation(sys.argv[i])

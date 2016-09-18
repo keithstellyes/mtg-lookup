@@ -48,7 +48,7 @@ greater than 5, you would pass:
 
 **NOTE:** In most environments, including Windows, Mac OS and Linux > < have a
 special meaning, so to pass the above, you must surround the > < with "" or,
-escape it with a \.
+escape it with a \\.
 
 For power in a range 3-5, it is as simple as:
 
@@ -167,3 +167,11 @@ In that example, the criteria groups are:
 and
 
     -type instant cmc "<4"
+
+# Debug Options
+
+Currently the only debug option is PRINT_QUERY it is set as follows:
+
+    -debug PRINT_QUERY
+
+This simply prints the SQLite query made to the local database.
