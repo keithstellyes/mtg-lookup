@@ -59,6 +59,7 @@ or,
     -p ">=3" -p "<=5"
 
 or,
+
     -p \\>2 -p \\<6
 
 Also, for exact equality:
