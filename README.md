@@ -60,7 +60,7 @@ or,
 
 or,
 
-    -p \\>2 -p \\<6
+    -p \>2 -p \<6
 
 Also, for exact equality:
 
