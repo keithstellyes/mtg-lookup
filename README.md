@@ -47,7 +47,8 @@ greater than 5, you would pass:
     -power >5
 
 **NOTE:** In most environments, including Windows, Mac OS and Linux > < have a
-special meaning, so to pass the above, you must surround the > < with "".
+special meaning, so to pass the above, you must surround the > < with "" or,
+escape it with a \.
 
 For power in a range 3-5, it is as simple as:
 
@@ -56,6 +57,9 @@ For power in a range 3-5, it is as simple as:
 or,
 
     -p ">=3" -p "<=5"
+
+or,
+    -p \\>2 -p \\<6
 
 Also, for exact equality:
 
@@ -102,7 +106,7 @@ For exclusions it is:
 
 **PRINT OPTIONS**
 
-Currently, there are two printing options:
+Currently, there are two printing options (not including the default one):
 
 count_bare and custom
 
@@ -126,8 +130,9 @@ mtg-lookup also supports custom print outputting as defined by a text file.
 
 The syntax is simple: {SQLite column name} to be replaced by it. See the 
 examples examples-of-custom-card-output/ folder for examples. Currently, lists
-are stored as ; separated lists with ; at each end, so readability isn't 
-perfect. It'll be fixed later on.
+are stored as ; separated lists with ; at each end, meaning, putting in {FORMAT}
+will output an ugly list with semi-colons between the elements and at the 
+beginning and end.
 
 # Boolean operations
 
