@@ -15,6 +15,8 @@ class QueryBuilder:
     bool_operation = None
     debug_options = {"PRINT_QUERY":False}
     sort_cols = []
+    randoms_to_get = 0
+    els_chosen = []
 
     #returns True on success, False on failure
     def push_bool_operation(s):
@@ -102,12 +104,40 @@ class QueryBuilder:
             QueryBuilder.qry += QueryBuilder.bool_operation
 
         else:
-            QueryBuilder.qry += list(QueryBuilder.criteria_groups)[0]
+            crit_group = list(QueryBuilder.criteria_groups)[0]
+            if crit_group == '':
+                QueryBuilder.qry = QueryBuilder.qry.replace('WHERE','')
+            else:
+                QueryBuilder.qry += crit_group
         if len(QueryBuilder.sort_cols) != 0:
             QueryBuilder.qry += ' ORDER BY ' + ','.join(QueryBuilder.sort_cols)
         QueryBuilder.cursor_results = QueryBuilder.cursor.execute(QueryBuilder.qry)
         #QueryBuilder.criteria_groups = set()
         QueryBuilder.criteria_groups = []
+
+        if QueryBuilder.randoms_to_get != 0:
+            QueryBuilder.cursor_results = [r for r in QueryBuilder.cursor_results]
+            res_len = len(QueryBuilder.cursor_results)
+            if QueryBuilder.randoms_to_get < res_len:
+                import random
+
+                # Shuffling all the items is potentially expensive
+                indices = set()
+
+                while QueryBuilder.randoms_to_get:
+                    n = random.randrange(res_len)
+                    if n not in indices:
+                        indices.add(n)
+                        QueryBuilder.randoms_to_get -= 1
+                arr = []
+                for el in indices:
+                    arr.append(QueryBuilder.cursor_results[el])
+                QueryBuilder.cursor_results = arr
+            else:
+                print("======")
+                print("WARNING: You asked for {0} random cards, but".format(QueryBuilder.randoms_to_get),end='')
+                print(" there were only {0} results.".format(res_len))
+                print("======")
 
     def print_query():
         print(QueryBuilder.qry)
@@ -131,7 +161,7 @@ class QueryBuilder:
         if QueryBuilder.debug_options["PRINT_QUERY"]:
             print("===QUERY===")
             QueryBuilder.print_query()
-            print("===========")        
+            print("===========")
         #QueryBuilder.cursor.fetchone()['COLOR_IDENTITY']
         #To get col names we can use:
         # names = [description[0] for description in cursor.description]

@@ -196,3 +196,29 @@ Currently the only debug option is PRINT_QUERY it is set as follows:
     -debug PRINT_QUERY
 
 This simply prints the SQLite query made to the local database.
+
+# Random feature
+
+mtg-lookup also supports returning random N cards from results.
+
+By default it returns 1 random card.
+
+    -random
+
+Or,
+
+    -random N
+
+Where N is the number of cards to return. Of course, this can be combined with
+all of the above criteria. For 38 random goblin cards or red instants with a 
+CMC of 1:
+
+    random 38 -bool "0|1" -type goblin , -type instant -cmc 1 -colorid r
+
+Or of course, for a random creature of CMC N:
+
+    -type creature -random -cmc N
+
+
+ 
+
