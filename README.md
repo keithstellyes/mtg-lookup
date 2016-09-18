@@ -168,6 +168,27 @@ and
 
     -type instant cmc "<4"
 
+# Custom sorting
+
+To sort ascending with a parameter:
+
+    -sort aCOLUMN
+
+For descending:
+
+    -sort dCOLUMN
+
+You must have a or d before it, or it will throw an error.
+
+Levels of sorting is also possible:
+
+    -sort aCMC -sort dNAME
+
+That'll sort by CMC in ascending order, and when the CMC is the same, it'll
+sort by name in descending order.
+
+
+
 # Debug Options
 
 Currently the only debug option is PRINT_QUERY it is set as follows:

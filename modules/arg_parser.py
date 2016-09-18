@@ -23,7 +23,7 @@ def parse_args():
     #include types a, types b, exclude type c
     list_keys = {"type":"ALL_TYPES","legal":"LEGALITIES"
                  ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS","format":"LEGALITIES"}
-    misc_keys = ["-print","-help",",","-bool","-debug"]
+    misc_keys = ["-print","-help",",","-bool","-debug","-sort"]
     valid_print_options = ['count_bare','custom']
 
     i = 1
@@ -93,6 +93,17 @@ def parse_args():
             if sys.argv[i] == '-bool':
                 i += 1
                 qb.push_bool_operation(sys.argv[i])
+            if sys.argv[i] == "-sort":
+                i += 1
+                if sys.argv[i][0] != 'a' and sys.argv[i][0] != 'd':
+                    print("-sort arg must begin with a or d")
+                    print(sys.argv[i])
+                    sys.exit(3)
+                s = sys.argv[i][1:]
+                if sys.argv[i][0] == 'a':
+                    qb.sort_cols.append(s + ' ASC')
+                else:
+                    qb.sort_cols.append(s + ' DESC')
             elif sys.argv[i] == ',':
                 qb.combine_this_criteria()
             i += 1

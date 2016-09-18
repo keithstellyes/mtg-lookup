@@ -14,6 +14,7 @@ class QueryBuilder:
     custom_print_str = ""
     bool_operation = None
     debug_options = {"PRINT_QUERY":False}
+    sort_cols = []
 
     #returns True on success, False on failure
     def push_bool_operation(s):
@@ -95,9 +96,6 @@ class QueryBuilder:
     def make_query():
         QueryBuilder.combine_this_criteria()
         if len(QueryBuilder.criteria_groups) > 1:
-            """QueryBuilder.qry += "("
-            QueryBuilder.qry += " AND ".join(list(QueryBuilder.criteria_groups))
-            QueryBuilder.qry += ")"""
             if QueryBuilder.bool_operation == None:
                 return False
             QueryBuilder.bool_operation = QueryBuilder.bool_operation.format(*QueryBuilder.criteria_groups)
@@ -105,15 +103,11 @@ class QueryBuilder:
 
         else:
             QueryBuilder.qry += list(QueryBuilder.criteria_groups)[0]
-        #QueryBuilder.print_query()
+        if len(QueryBuilder.sort_cols) != 0:
+            QueryBuilder.qry += ' ORDER BY ' + ','.join(QueryBuilder.sort_cols)
         QueryBuilder.cursor_results = QueryBuilder.cursor.execute(QueryBuilder.qry)
         #QueryBuilder.criteria_groups = set()
         QueryBuilder.criteria_groups = []
-        #print(QueryBuilder.qry)
-        if QueryBuilder.debug_options["PRINT_QUERY"]:
-            print("===QUERY===")
-            QueryBuilder.print_query()
-            print("===========")
 
     def print_query():
         print(QueryBuilder.qry)
@@ -134,6 +128,10 @@ class QueryBuilder:
                     return key
             for r in QueryBuilder.cursor_results:
                 print(QueryBuilder.custom_print_str.format_map(Default(r)))
+        if QueryBuilder.debug_options["PRINT_QUERY"]:
+            print("===QUERY===")
+            QueryBuilder.print_query()
+            print("===========")        
         #QueryBuilder.cursor.fetchone()['COLOR_IDENTITY']
         #To get col names we can use:
         # names = [description[0] for description in cursor.description]
