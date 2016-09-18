@@ -8,9 +8,24 @@ class QueryBuilder:
     cursor = None
     cursor_results = None
     this_criteria = set()
-    criteria_groups = set()
+    #criteria_groups = set()
+    criteria_groups = []
     print_setting = ""
     custom_print_str = ""
+    bool_operation = None
+
+    #returns True on success, False on failure
+    def push_bool_operation(s):
+        valid_chars = "0123456789()&| "
+        for c in s:
+            if c not in valid_chars:
+                return False
+        QueryBuilder.bool_operation = s.replace("&", " AND ")
+        QueryBuilder.bool_operation = QueryBuilder.bool_operation.replace("|"," OR ")
+        for n in range(10):
+            sn = str(n)
+            snn = '{' + sn + '}'
+            QueryBuilder.bool_operation = QueryBuilder.bool_operation.replace(sn,snn)
 
     def matches_regex(s,regex):
         regex = re.compile(regex,re.IGNORECASE)
@@ -68,22 +83,32 @@ class QueryBuilder:
     def combine_this_criteria():
         QueryBuilder.this_criteria = " AND ".join(list(QueryBuilder.this_criteria))
         if len(QueryBuilder.criteria_groups) > 1:
-            QueryBuilder.criteria_groups.add("("+QueryBuilder.this_criteria+")")
+            #QueryBuilder.criteria_groups.add("("+QueryBuilder.this_criteria+")")
+            QueryBuilder.criteria_groups.append("("+QueryBuilder.this_criteria+")")
         else:
-            QueryBuilder.criteria_groups.add(QueryBuilder.this_criteria)
+            #QueryBuilder.criteria_groups.add(QueryBuilder.this_criteria)
+            QueryBuilder.criteria_groups.append(QueryBuilder.this_criteria)
         QueryBuilder.this_criteria = set()
 
+    #returns True on success, False on failure
     def make_query():
         QueryBuilder.combine_this_criteria()
         if len(QueryBuilder.criteria_groups) > 1:
-            QueryBuilder.qry += "("
+            """QueryBuilder.qry += "("
             QueryBuilder.qry += " AND ".join(list(QueryBuilder.criteria_groups))
-            QueryBuilder.qry += ")"
+            QueryBuilder.qry += ")"""
+            if QueryBuilder.bool_operation == None:
+                return False
+            QueryBuilder.bool_operation = QueryBuilder.bool_operation.format(*QueryBuilder.criteria_groups)
+            QueryBuilder.qry += QueryBuilder.bool_operation
+
         else:
             QueryBuilder.qry += list(QueryBuilder.criteria_groups)[0]
-        QueryBuilder.print_query()
+        #QueryBuilder.print_query()
         QueryBuilder.cursor_results = QueryBuilder.cursor.execute(QueryBuilder.qry)
-        QueryBuilder.criteria_groups = set()
+        #QueryBuilder.criteria_groups = set()
+        QueryBuilder.criteria_groups = []
+        print(QueryBuilder.qry)
 
     def print_query():
         print(QueryBuilder.qry)

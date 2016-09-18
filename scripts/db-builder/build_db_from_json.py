@@ -75,9 +75,10 @@ c = conn.cursor()
 print("DB Cursor created")
 qry = "CREATE TABLE CARDS (CMC INTEGER,COLOR_IDENTITY TEXT,COLORS TEXT,"
 qry += "LEGALITIES TEXT,LOYALTY INTEGER,MANA_COST TEXT,NAME TEXT,"
-qry += "POWER INTEGER, PRINTINGS TEXT, RULINGS TEXT, SUBTYPES TEXT,"
-qry += "SUPERTYPES TEXT, CARD_TEXT TEXT, TOUGHNESS INTEGER, TYPE TEXT,"
-qry += "TYPES TEXT,ALL_TYPES TEXT)"
+qry += "POWER INTEGER, PRINTINGS TEXT, RULINGS TEXT, "
+qry += "CARD_TEXT TEXT, TOUGHNESS INTEGER, TYPE TEXT,"
+#qry += "TYPES TEXT,ALL_TYPES TEXT)"
+qry += "ALL_TYPES TEXT)"
 print("...Executing query:...")
 print(qry)
 print("......................")
@@ -88,8 +89,8 @@ c.execute(qry)
 #TODO More tables for printings/legalities/etc.
 for k in data.keys():
     qry = "INSERT INTO CARDS (NAME,CMC,COLOR_IDENTITY,COLORS,LEGALITIES,"
-    qry += "LOYALTY,MANA_COST,POWER,PRINTINGS,RULINGS,SUBTYPES,"
-    qry += "SUPERTYPES,CARD_TEXT,TOUGHNESS,TYPE,TYPES,ALL_TYPES) VALUES("
+    qry += "LOYALTY,MANA_COST,POWER,PRINTINGS,RULINGS,"
+    qry += "CARD_TEXT,TOUGHNESS,TYPE,ALL_TYPES) VALUES("
     try:
         qry += '"'+str(data[k]['name']).replace('"','""')+'"'
     except:
@@ -166,20 +167,6 @@ for k in data.keys():
         qry += "NULL"
     qry += "',"
 
-    #qry += "'',"
-
-    try:
-        qry += "'" + ";" + ";".join(data[k]['subtypes']) + ";" + "'"
-    except KeyError:
-        qry += "'NULL'"
-    qry += ","
-
-    try:
-        qry += "'" + ";" + ";".join(data[k]['supertypes']) + ";" + "'"
-    except KeyError:
-        qry += "'NULL'"
-    qry += ","
-
     try:
         qry += '"'+data[k]['text'].replace('"','""')+'"'
     except KeyError:
@@ -196,12 +183,6 @@ for k in data.keys():
 
     try:
         qry += '"'+data[k]['type']+'"'
-    except KeyError:
-        qry += "'NULL'"
-    qry += ","
-
-    try:
-        qry += '"' + ";" + ";".join(data[k]['types']) + ";" + '"'
     except KeyError:
         qry += "'NULL'"
     qry += ","

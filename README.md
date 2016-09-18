@@ -14,10 +14,7 @@ already written features.
 
 # Upcoming Features
 
-More criteria searching, tag-based searching (Like, has-flying), complex 
-boolean searches like returning only cards that are named Jace or are 
-instants, or sorceries with CMC less than 4. These features already exist in
-the old deprecated code, in fact.
+More criteria searching, tag-based searching (Like, has-flying)
 
 # Setup
 
@@ -131,3 +128,36 @@ The syntax is simple: {SQLite column name} to be replaced by it. See the
 examples examples-of-custom-card-output/ folder for examples. Currently, lists
 are stored as ; separated lists with ; at each end, so readability isn't 
 perfect. It'll be fixed later on.
+
+# Boolean operations
+
+    -bool "OPERATION" CRITERIA-GROUP-0 , CRITERIA-GROUP-1
+
+mtg-lookup's uses a "Criteria group" model. A standard search that does not use
+boolean operators only has a single criteria group. | is used to represent OR,
+and & represents AND.
+
+Currently, it only supports up to 10 criteria groups, starting with criteria 0.
+It is best explained by example.
+
+For example, to search for blue instants that cost less than 4 mana, or Jace 
+planeswalker cards, we would do the following:
+
+    mtg_lookup.py -bool "0|1" -type Jace , -type instant -cmc "<4"
+
+**Explanation:**
+    -bool "0|1" 
+That translates to CRITERIA-GROUP-0 OR CRITERIA-GROUP-1 . In order for a
+card to be matched by a criteria group, it must match all of its parameters.
+
+    ,
+
+This separates the criteria groups.
+
+In that example, the criteria groups are:
+
+    -type Jace
+
+and
+
+    -type instant cmc "<4"
