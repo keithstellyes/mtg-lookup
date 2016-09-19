@@ -93,6 +93,8 @@ def parse_args():
                     i += 1
                 except ValueError:
                     qb.randoms_to_get = 1
+                except IndexError:
+                    qb.randoms_to_get = 1
             if sys.argv[i] == '-debug':
                 i += 1
                 qb.debug_options[sys.argv[i]] = True

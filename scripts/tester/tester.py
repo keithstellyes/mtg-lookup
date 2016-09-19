@@ -3,7 +3,7 @@ This is the tester script. It processes every .tst file
 """
 import datetime,os,sys,timeit
 
-def evaluate_tstfile(fullpath):
+def evaluate_tstfile(fullpath,script_path):
     def val_printer(val_name,val):
         print(val_name+":")
         print(val)
@@ -13,7 +13,7 @@ def evaluate_tstfile(fullpath):
         for line in lines:
             expected = line[:line.index("#")] + '\n'
             call = line[line.index("#")+1:].rstrip()
-            result = os.popen("python3 mtg_lookup.py "+call).read()
+            result = os.popen("python3 " + script_path + ' ' + call).read()
             if expected != result:
                 fail_ctr+=1
                 print("========================")
@@ -43,8 +43,10 @@ def evaluate_tstfile(fullpath):
         print("Evaluating..."+tstfile)
         print("...STANDARD TEST...")
         std_test(lines[i:])
-
-TEST_FILE_DIR = os.path.dirname(os.path.realpath(__file__)) + "/scripts/tester/tests/"
+THIS_PATH = os.path.realpath(__file__)
+TEST_FILE_DIR = os.path.dirname(THIS_PATH) + "/tests/"
+arr = THIS_PATH.split('/')
+SCRIPT_PATH = '/'.join(arr[0:len(arr)-3]) + '/mtg_lookup.py'
 
 #Does not include the .../tests/ part of the file name
 #we can add it later, though
@@ -63,8 +65,8 @@ print("Number of test files detected: "+str(len(tstfiles)))
 print("Test files:\n"+"\n".join(tstfiles),end="\n\n")
 
 for tstfile in tstfiles:
-    print("Opening..."+tstfile)
+    print("Opening..." + tstfile)
 
-    time_elapsed = timeit.timeit(lambda:evaluate_tstfile(tstfile),number = 1)
+    time_elapsed = timeit.timeit(lambda:evaluate_tstfile(tstfile,SCRIPT_PATH),number = 1)
     print("Time elapsed for {0}:\n{1}".format(tstfile,str(time_elapsed)))
     #print("Time elapsed for {0}:\n{1}".format(tstfile,str(datetime.datetime.now()-begin)))

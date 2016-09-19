@@ -1,5 +1,6 @@
 #LICENSE: See LICENSE.txt
 #query_builder.py
+#TODO: Move output logic out of query_builder
 import re
 import sqlite3
 
@@ -105,7 +106,9 @@ class QueryBuilder:
 
         else:
             crit_group = list(QueryBuilder.criteria_groups)[0]
+            #Entered if no criteria is given.
             if crit_group == '':
+                #WHERE is in by default. This removes it.
                 QueryBuilder.qry = QueryBuilder.qry.replace('WHERE','')
             else:
                 QueryBuilder.qry += crit_group
@@ -150,7 +153,11 @@ class QueryBuilder:
                 print(r['CARD_TEXT'])
                 print()
         if QueryBuilder.print_setting == 'count_bare':
-            print(len(QueryBuilder.cursor.fetchall()))
+            #print(len(QueryBuilder.cursor.fetchall()))
+            try:
+                print(len(QueryBuilder.cursor_results))
+            except TypeError:
+                print(len([r for r in QueryBuilder.cursor_results]))
         if QueryBuilder.print_setting == 'custom':
             #Code from: https://docs.python.org/3.5/library/stdtypes.html#str.format
             class Default(dict):

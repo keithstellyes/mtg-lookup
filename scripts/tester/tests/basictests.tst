@@ -5,6 +5,7 @@ TST=STD
 14#-print count_bare "^cephalid"
 1#-print count_bare "cephalid a"
 2#-print count_bare "(cephalid a)|(cephalid b)"
+2#-print count_bare -type cephalid -type legendary
 4#"cephalid s" -print count_bare
 16#-print count_bare "(?=cephalid)"
 4#-print count_bare "(?=.*cephalid)(?=.*er$)"
@@ -22,3 +23,11 @@ TST=STD
 1#-print count_bare -type scarecrow -type LEGenDarY
 1#-type SCAREcrow -print count_bare -type leGENDARY -text perm
 340#-bool "0|1" -type scarecrow , -type goblin -print count_bare
+2#-bool "0|1" -type scarecrow , -type goblin -print count_bare -random 2
+309# -print count_bare -type goblin
+311#-type goblin -print count_bare -bool "0|1" , -type cephalid -type legendary
+342#-type scarecrow -print count_bare -bool "0|1|2" , -type goblin , -type cephalid -type legendary
+1#-type scarecrow -print count_bare -bool "0|1|2" , -type goblin , -type cephalid -type legendary -random
+1#-random -print count_bare
+0#-bool "0&1" -type cephalid , -type goblin -print count_bare
+1#-type land -type creature
