@@ -25,6 +25,9 @@ def parse_args():
                  ,"colorid":"COLOR_IDENTITY","printings":"PRINTINGS","format":"LEGALITIES"}
     misc_keys = ["-print","-help",",","-bool","-debug","-sort","-random"]
     valid_print_options = ['count_bare','custom']
+    valid_cols = ['CMC', 'COLOR_IDENTITY', 'COLORS', 'LEGALITIES', 'LOYALTY',
+    'MANA_COST', 'NAME', 'POWER', 'PRINTINGS', 'RULINGS', 'CARD_TEXT',
+    'TOUGHNESS', 'TYPE', 'ALL_TYPES']
 
     i = 1
 
@@ -108,6 +111,10 @@ def parse_args():
                     print(sys.argv[i])
                     sys.exit(3)
                 s = sys.argv[i][1:]
+                if s not in valid_cols:
+                    print("Invalid column name:")
+                    print(s)
+                    sys.exit(3)
                 if sys.argv[i][0] == 'a':
                     qb.sort_cols.append(s + ' ASC')
                 else:
