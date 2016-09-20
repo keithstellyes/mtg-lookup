@@ -20,6 +20,7 @@ import sqlite3
 import sys
 from modules.query_builder import QueryBuilder as qb
 from modules.arg_parser import parse_args
+from modules.print_facilities import print_results
 
 data_db_file = os.path.dirname(os.path.realpath(__file__)) + '/data/data.db'
 
@@ -37,5 +38,6 @@ qb.attach_connection(conn)
 
 parse_args()
 qb.make_query()
-qb.print_results()
+#qb.print_results()
+print_results()
 #data = qb.fetchall()

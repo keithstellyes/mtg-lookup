@@ -1,5 +1,13 @@
 """
-This is the tester script. It processes every .tst file
+This is the tester script. It processes every .tst file.
+This only tests for _correctness_ in operation of the full program, it is not:
+    -A unit test
+    -A performance test
+This tests not just correct responses to parameters, but also correct parsing
+    of parameters by the program.
+It is silent during the actual tests, but upon incorrect response, pre-, and
+    post-testing, it is rather verbose to ideally aid in the debugging process.
+The tester module isn't useful except for development purposes.
 """
 import datetime,os,sys,timeit
 

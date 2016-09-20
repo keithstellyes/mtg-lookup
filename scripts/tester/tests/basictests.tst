@@ -30,4 +30,4 @@ TST=STD
 1#-type scarecrow -print count_bare -bool "0|1|2" , -type goblin , -type cephalid -type legendary -random
 1#-random -print count_bare
 0#-bool "0&1" -type cephalid , -type goblin -print count_bare
-1#-type land -type creature
+1#-type land -type creature -print count_bare
