@@ -1,0 +1,44 @@
+/* This marks a comment
+
+    For a card to get the tag, it must have each statement be true.
+
+    There are three types of statement:
+
+    *parameter-value
+    **For things like creature type, set, legality, etc.
+    *(DIRECTIVE)
+    *(DIRECTIVE="ARGUMENT")
+    **Directives are misc. things like USE_EXCLUSIONS
+
+    These statements allow the database generator to build tags.
+
+
+ */
+
+flying {
+    type-creature;
+    text-"flying";
+    (USE_EXCLUSIONS);
+}
+
+extort {
+    set-gtc or set-dgm;
+    text-"extort";
+    type-creature;
+    color-white or color-black;
+    not color-blue;
+    not color-red;
+    not color-green;
+}
+
+horsemanship {
+    set-ptk;
+    type-creature;
+    text-"horsemanship";
+}
+
+living_weapon {
+    set-mbc or set-c15;
+    type-artifact;
+    text-"living weapon";
+}
